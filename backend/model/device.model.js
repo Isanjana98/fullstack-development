@@ -17,11 +17,11 @@ const DeviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  location: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Location",
-    required: true
-  },
+  // location: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Location",
+  //   required: true
+  // },
 },
 // {timestamps: true}
 );

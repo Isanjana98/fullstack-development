@@ -1,9 +1,10 @@
 import React from "react";
 import "./addLocation.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //import { axios} from "react";
 import { useState } from "react";
 import axios from 'axios';
+import toast from "react-hot-toast";
 
 const AddLocation = () => {
 
@@ -15,6 +16,7 @@ const AddLocation = () => {
   }
   
   const [location, setLocation] = useState(locations);
+  const navigate = useNavigate(); 
   
   const inputHandler = (e) => {
     const {name, value} = e.target;
@@ -24,8 +26,13 @@ const AddLocation = () => {
     e.preventDefault();
     await axios.post("https://localhost:8000/api/createlocations", location)
     .then((response)=>{
-      console.log(response)
-    }).catch(error => console.log(error))
+      toast.success(response.data.msg, {position:	"top-right"});
+      navigate("/Location");
+    })
+    .catch(error => {
+      console.log("Error:", error);
+      toast.error("An error occurred while adding the Location.", { position: "top-right" });
+    });
   }
     return (
       <div className="addLocation">

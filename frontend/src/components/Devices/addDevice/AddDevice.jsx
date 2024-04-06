@@ -11,8 +11,8 @@ const AddDevice = () => {
   const devices = {
     serialNumber: "",
     type: "",
+    image: "",
     status: "",
-    location: "",
   }
   
   const [device, setDevice] = useState(devices); 
@@ -24,13 +24,18 @@ const AddDevice = () => {
   }
   const submitForm = async(e) => {
     e.preventDefault();
+    
     await axios.post("http://localhost:8000/api/createdevices", device)
     .then((response)=>{
       toast.success(response.data.msg, {position:	"top-right"});
       navigate("/Devices");
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log("Error:", error);
+      toast.error("An error occurred while adding the device.", { position: "top-right" });
+    });
   }
+
     return (
       <div className="addDevice">
         <Link to={"/getdevices"}>Back</Link>
@@ -48,7 +53,7 @@ const AddDevice = () => {
             />
           </div>
           <div className="inputGroup">
-            <label htmlFor="device type">Device Type </label>
+            <label htmlFor="type">Device Type </label>
             <input
               type="text"
               onChange={inputHandler} 

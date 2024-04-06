@@ -30,7 +30,7 @@ function EditDevices() {
     })
     .catch((error) =>  {
       console.log("Error");
-    })
+    });
   }  )
 
   return (
